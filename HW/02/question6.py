@@ -1,4 +1,4 @@
-# Question 4
+# Question 6
 
 #import mapColoringCode
 from mapColoringCode import *
@@ -27,7 +27,9 @@ def r_find_coloring(states_colored, m, dead_end):
         return m,dead_end
     
     # Grab a state that isnt colored
-    s = select_unassigned(m)
+    # New method returns a Minimum Remaining Values (MRV) 
+    # ordering of the states that are still not colored. 
+    s = m.get_not_colored()[0]
     
     for color in m.get_colors():
         if valid_assignment(m,s,color):
