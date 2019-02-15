@@ -4,7 +4,7 @@
 from mapColoringCode import *
 
 def find_coloring(init_map):
-    return r_find_coloring([], init_map)
+    return r_find_coloring([], init_map, 0)
 
 # Given map, finds state that needs coloring
 def select_unassigned(m):
@@ -21,10 +21,10 @@ def valid_assignment(m,s,c):
                 return False
     return True
 
-def r_find_coloring(states_colored, m):
+def r_find_coloring(states_colored, m, dead_end):
     #Catch when we are done
     if set(states_colored) == set(m.get_states()):
-        return m
+        return m,dead_end
     
     # Grab a state that isnt colored
     s = select_unassigned(m)
@@ -37,12 +37,13 @@ def r_find_coloring(states_colored, m):
             # Keep track of what states we already seen
             states_colored.append(s)
             
-            result = r_find_coloring(states_colored,m_new)
+            result,dead_end = r_find_coloring(states_colored,m_new,dead_end)
             
             if result != '':
-                return result
+                return result,dead_end
             
             states_colored.remove(s)
 
     # If fail 
-    return ''
+    dead_end += 1
+    return '',dead_end
