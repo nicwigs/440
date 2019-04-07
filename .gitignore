@@ -1,2 +1,4 @@
+TestData/
+trainData/
 *.DS_Store
 *.ipynb_checkpoints
